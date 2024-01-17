@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="form-con">
+      <form class="example-form" [formGroup]="reactiveForm" (ngSubmit)="onformsubmit()">
+
+            <h1>Reactive Form</h1>
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                      <!-- <small *ngIf="reactiveForm.get('firstname').invalid && reactiveForm.get('firstname').touched">*first name is a required field</small> -->
+                      <small *ngIf="reactiveForm.get('firstname').errors?.['NoSpaceAllowed']">*No space is allowed to enter After the name</small>
+                      <small *ngIf="reactiveForm.get('firstname').errors?.['required'] && reactiveForm.get('firstname').touched">*First Name is a Required Field</small>
+                      <small *ngIf="reactiveForm.get('firstname').errors?.['minlength'] && reactiveForm.get('firstname').touched">*Minimum Three Characters are Required</small>
+                      <mat-form-field class="example-full-width">
+                            <mat-label>First name</mat-label>
+                            <input matInput formControlName="firstname" >
+                        </mat-form-field>
+                        
+                    </td>
+
+                    <td><small *ngIf="reactiveForm.get('lastname').invalid && reactiveForm.get('lastname').touched">*lastname  is a required field</small>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="lastname">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+
+
+            <p>
+              <small *ngIf="reactiveForm.get('email').invalid && reactiveForm.get('email').touched">*Email is a required field</small>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput placeholder="Ex.pat@example.com" formControlName="email">
+
+                </mat-form-field>
+                <br>
+                <small *ngIf="reactiveForm.get('address').invalid && reactiveForm.get('address').touched">*Address is a required field</small>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Ex. 100 Main St" formControlName="address">
+                </mat-form-field>
+
+
+            </p>
+             <table class="example-full-width" cellspacing="0"> 
+                <tr>
+                  <td><label >Gender</label>
+                    <mat-radio-group aria-label="Select an option" formControlName="gender" >
+                      <mat-radio-button value="male" >Male</mat-radio-button>
+                      <mat-radio-button value="female">Female</mat-radio-button>
+                      <mat-radio-button value="female">Other</mat-radio-button>
+                    </mat-radio-group>
+                    
+                  </td>
+
+                </tr>
+                
+                <td><small *ngIf="reactiveForm.get('city').invalid && reactiveForm.get('city').touched">*Cityis a required field</small><mat-form-field class="example-full-width">
+                  <mat-label>City</mat-label>
+                  <input matInput placeholder="Ex. San Francisco" formControlName="city">
+              </mat-form-field></td>
+                <tr>
+                    <td><small *ngIf="reactiveForm.get('state').invalid && reactiveForm.get('state').touched">*state is a required field</small><mat-form-field class="example-full-width">
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="Ex. California" formControlName="state">
+                        </mat-form-field></td>
+
+    
+                </tr>
+                <td><small *ngIf="reactiveForm.get('pincode').invalid && reactiveForm.get('pincode').touched">*Pincode  is a required field</small><mat-form-field class="example-full-width">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput #postalCode maxlength="7" placeholder="Ex. 94105" value="" formControlName="pincode">
+                        
+                    </mat-form-field></td> <br>
+                    
+                   <tr class="form-array-dynamic-form-control" formArrayName="skills">
+                    <td><mat-form-field class="example-full-width" *ngFor="let x of reactiveForm.get('skills')['controls']; let i=index" >
+                      <mat-label>Add skils</mat-label>
+                      <input matInput #postalCode maxlength="7" placeholder="" value=""  [formControlName]="i">
+                      
+                  </mat-form-field></td>
+                   </tr>
+                   <button mat-raised-button type="button" (click)="addskill()"  color="primary">add skilss</button>
+                   <button mat-raised-button type="button" (click)="deleteskill()" color="warn">delete skilss</button>
+                    <br>
+                    <!-- dynamic formgroup adding example -->
+                    <!-- <div>
+                    <tr class="dynamic-form-group" formArrayName="experience">
+                      <td><mat-form-field class="example-full-width" *ngFor="let x of reactiveForm.get('experince')['controls']; let i=index" >
+                        <mat-label>Company</mat-label>
+                        <input matInput  placeholder="Company Name" value=""  formControlName="company">
+                        
+                    </mat-form-field></td>
+
+                    <td><mat-form-field class="example-full-width"  >
+                      <mat-label>experience</mat-label>
+                      <input matInput placeholder="your experinces..." value=""  formControlName="exp">
+                      
+                  </mat-form-field></td>
+                    </tr>
+                    <button mat-raised-button type="button" (click)="addexp()" color="warn">Add experinece</button>
+
+                  </div> -->
+                  </table>
+                  <br>
+                  <button mat-raised-button   type="submit" value="submit" color="accent" >Submit</button>
+                  <!-- [disabled]="!reactiveForm.valid" -->
+        </form>  
+   
+      
+</div>
